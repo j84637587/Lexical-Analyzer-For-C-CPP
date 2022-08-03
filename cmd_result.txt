@@ -1,0 +1,92 @@
+多行註解: /*
+ * =====================================================================================
+ *
+ *       Filename:  adjacency_list.c
+ *
+ *    Description:  Graph implementation using Adjacency List
+ *
+ *        Version:  1.0
+ *        Created:  23/04/2013 11:42:27
+ *       Revision:  none
+ *
+ * =====================================================================================
+ */
+
+標頭檔: #include "adjacency_list.h"
+函式: void empty_adjlist(Adj_List* g) 
+	識別項: g
+  NULL 指示詞: NULL
+函式: void exist_arc_adjlist(Adj_List* g, int v1, int v2) 
+函式: void insert_arc_adjlist(Adj_List* g, int v1, int v2, int weight) 
+函式: void remove_arc_adjlist(Adj_List* g, int v1, int v2) 
+函式: void remove_arc_adjlist(Adj_List* g, int v1, int v2) 
+函式: void free_adjlist(Adj_List* g) 
+函式: void print_adjlist(Adj_List* g) 
+函式: void remove_min_arc(Adj_List* g) 
+函式: int main(int argc, char* argv[]) 
+	return 跳躍陳述式: return 0;
+================== 統計 =====================
+            檔案結尾 出現 0 次
+               error 出現 0 次
+              標頭檔 出現 1 次
+                定義 出現 0 次
+                宣告 出現 0 次
+                整數 出現 0 次
+              浮點數 出現 0 次
+                字元 出現 0 次
+              識別項 出現 0 次
+                字串 出現 0 次
+            單行註解 出現 0 次
+            多行註解 出現 1 次
+            消除定義 出現 0 次
+            儲存類別 出現 0 次
+                宣告 出現 0 次
+                常數 出現 0 次
+                列舉 出現 0 次
+           case 標籤 出現 0 次
+        default 標籤 出現 0 次
+           if 陳述式 出現 0 次
+       switch 陳述式 出現 0 次
+         else 陳述式 出現 0 次
+        反覆運算語句 出現 0 次
+           do 陳述式 出現 0 次
+        while 陳述式 出現 0 次
+     goto 跳躍陳述式 出現 0 次
+ continue 跳躍陳述式 出現 0 次
+    break 跳躍陳述式 出現 0 次
+            結構類型 出現 0 次
+   return 跳躍陳述式 出現 1 次
+       sizeof 運算子 出現 0 次
+              空字符 出現 4 次
+              識別項 出現 1 次
+            強制轉型 出現 0 次
+                函式 出現 9 次
+                字串 出現 0 次
+                字元 出現 0 次
+         NULL 指示詞 出現 1 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次

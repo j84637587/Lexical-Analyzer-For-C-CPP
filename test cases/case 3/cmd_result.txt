@@ -1,0 +1,406 @@
+多行註解: /* Binary Search Tree Implementation in C */
+
+多行註解: /* Harish R */
+
+標頭檔: #include<stdio.h>
+標頭檔: #include<stdlib.h>
+結構類型: struct TreeNode
+	宣告: int data;
+	結構類型: struct TreeNode
+ 識別項: left
+	結構類型: struct TreeNode
+ 識別項: right
+結構類型: struct TreeNode
+ 識別項: makeEmpty
+結構類型: struct TreeNode
+ 識別項: root
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+			識別項: makeEmpty
+識別項: root
+識別項: left
+		識別項: makeEmpty
+識別項: root
+識別項: right
+		識別項: free
+識別項: root
+		return 跳躍陳述式: return NULL;
+結構類型: struct TreeNode
+ 識別項: insert
+結構類型: struct TreeNode
+ 識別項: root
+ 識別項: int
+ 識別項: x
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+			識別項: root
+  識別項: malloc
+sizeof 運算子: sizeof(struct TreeNode))
+		識別項: root
+識別項: data
+  識別項: x
+		識別項: root
+識別項: left
+  識別項: root
+識別項: right
+  NULL 指示詞: NULL
+		else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		識別項: root
+識別項: left
+  識別項: insert
+識別項: root
+識別項: left
+ 識別項: x
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		識別項: root
+識別項: right
+  識別項: insert
+識別項: root
+識別項: right
+ 識別項: x
+	return 跳躍陳述式: return root;
+結構類型: struct TreeNode
+ 識別項: findMin
+結構類型: struct TreeNode
+ 識別項: root
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return NULL;
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: root
+識別項: left
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return root;
+	else 陳述式: else
+		return 跳躍陳述式: return findMin(root->left);
+結構類型: struct TreeNode
+ 識別項: findMax
+結構類型: struct TreeNode
+ 識別項: root
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return NULL;
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: root
+識別項: right
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return root;
+	else 陳述式: else
+		return 跳躍陳述式: return findMax(root->right);
+結構類型: struct TreeNode
+ 識別項: find
+結構類型: struct TreeNode
+ 識別項: root
+ 識別項: int
+ 識別項: x
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return NULL;
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		return 跳躍陳述式: return find(root->left, x);
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		return 跳躍陳述式: return find(root->right, x);
+	else 陳述式: else
+		return 跳躍陳述式: return root;
+函式: int findHeight(struct TreeNode* root)
+	宣告: int lefth, righth;
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return -1;
+	識別項: lefth
+  識別項: findHeight
+識別項: root
+識別項: left
+	識別項: righth
+  識別項: findHeight
+識別項: root
+識別項: right
+	return 跳躍陳述式: return (lefth > righth ? lefth : righth) + 1;
+結構類型: struct TreeNode
+ 識別項: delete
+結構類型: struct TreeNode
+ 識別項: root
+ 識別項: int
+ 識別項: x
+	結構類型: struct TreeNode
+ 識別項: temp
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		return 跳躍陳述式: return NULL;
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		識別項: root
+識別項: left
+  識別項: delete
+識別項: root
+識別項: left
+ 識別項: x
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: x
+  識別項: root
+識別項: data
+		識別項: root
+識別項: right
+  識別項: delete
+識別項: root
+識別項: right
+ 識別項: x
+	else 陳述式: else
+ if 陳述式: if
+ 識別項: root
+識別項: left
+  識別項: root
+識別項: right
+			識別項: temp
+  識別項: findMin
+識別項: root
+識別項: right
+		識別項: root
+識別項: data
+  識別項: temp
+識別項: data
+		識別項: root
+識別項: right
+  識別項: delete
+識別項: root
+識別項: right
+ 識別項: root
+識別項: data
+		else 陳述式: else
+			識別項: temp
+  識別項: root
+		if 陳述式: if
+ 識別項: root
+識別項: left
+  NULL 指示詞: NULL
+			識別項: root
+  識別項: root
+識別項: right
+		else 陳述式: else
+ if 陳述式: if
+ 識別項: root
+識別項: right
+  NULL 指示詞: NULL
+			識別項: root
+  識別項: root
+識別項: left
+		識別項: free
+識別項: temp
+		return 跳躍陳述式: return root;
+函式: void inorder(struct TreeNode* root)
+	if 陳述式: if
+ 識別項: root
+  NULL 指示詞: NULL
+		識別項: return
+	識別項: inorder
+識別項: root
+識別項: left
+	識別項: printf
+字串: "%d "
+ 識別項: root
+識別項: data
+	識別項: inorder
+識別項: root
+識別項: right
+函式: int main()
+	結構類型: struct TreeNode
+ 識別項: root
+	結構類型: struct TreeNode
+ 識別項: temp
+	識別項: root
+  NULL 指示詞: NULL
+	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: printf
+字串: "Height: %d\n"
+ 識別項: findHeight
+識別項: root
+	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: printf
+字串: "Height: %d\n"
+ 識別項: findHeight
+識別項: root
+	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: printf
+字串: "Height: %d\n"
+ 識別項: findHeight
+識別項: root
+	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: root
+  識別項: insert
+識別項: root
+ 	識別項: inorder
+識別項: root
+ 識別項: printf
+字串: "\n"
+	識別項: temp
+  識別項: findMax
+識別項: root
+	識別項: printf
+字串: "Max Element: %d\n"
+ 識別項: temp
+識別項: data
+	識別項: temp
+  識別項: findMin
+識別項: root
+	識別項: printf
+字串: "Min Element: %d\n"
+ 識別項: temp
+識別項: data
+	識別項: root
+  識別項: delete
+識別項: root
+ 	識別項: root
+  識別項: delete
+識別項: root
+ 	識別項: inorder
+識別項: root
+ 識別項: printf
+字串: "\n"
+	識別項: root
+  識別項: delete
+識別項: root
+ 	識別項: inorder
+識別項: root
+ 識別項: printf
+字串: "\n"
+	識別項: root
+  識別項: delete
+識別項: root
+ 	識別項: inorder
+識別項: root
+ 識別項: printf
+字串: "\n"
+	識別項: root
+  識別項: delete
+識別項: root
+ 	識別項: inorder
+識別項: root
+ 識別項: printf
+字串: "\n"
+	識別項: root
+  識別項: makeEmpty
+識別項: root
+	return 跳躍陳述式: return 0;
+================== 統計 =====================
+            檔案結尾 出現 0 次
+               error 出現 0 次
+              標頭檔 出現 2 次
+                定義 出現 0 次
+                宣告 出現 0 次
+                整數 出現 0 次
+              浮點數 出現 0 次
+                字元 出現 0 次
+              識別項 出現 0 次
+                字串 出現 0 次
+            單行註解 出現 0 次
+            多行註解 出現 2 次
+            消除定義 出現 0 次
+            儲存類別 出現 0 次
+                宣告 出現 2 次
+                常數 出現 0 次
+                列舉 出現 0 次
+           case 標籤 出現 0 次
+        default 標籤 出現 0 次
+           if 陳述式 出現 19 次
+       switch 陳述式 出現 0 次
+         else 陳述式 出現 14 次
+        反覆運算語句 出現 0 次
+           do 陳述式 出現 0 次
+        while 陳述式 出現 0 次
+     goto 跳躍陳述式 出現 0 次
+ continue 跳躍陳述式 出現 0 次
+    break 跳躍陳述式 出現 0 次
+            結構類型 出現 18 次
+   return 跳躍陳述式 出現 17 次
+       sizeof 運算子 出現 1 次
+              空字符 出現 306 次
+              識別項 出現 236 次
+            強制轉型 出現 0 次
+                函式 出現 3 次
+                字串 出現 11 次
+                字元 出現 0 次
+         NULL 指示詞 出現 14 次
+            類別宣告 出現 0 次
+     PUBLIC 成員存取 出現 0 次
+    PRIVATE 成員存取 出現 0 次
+     FRIEND 成員存取 出現 0 次
+  PROTECTED 成員存取 出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次

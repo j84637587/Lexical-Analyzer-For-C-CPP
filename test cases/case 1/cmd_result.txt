@@ -1,0 +1,466 @@
+多行註解: /* This program is the VQ's codec processes. */
+
+多行註解: /*You must train the super codebook well before execute the codec process. */
+
+多行註解: /* This prog. has been modified for data hiding based on VQ codebook proj.*/
+
+多行註解: /* First, this prog. will output the VQ index file.*/
+
+多行註解: /* The following two steps are belong to another prog.*/
+
+多行註解: /* Second, these indexes are sequently embedded into codewords of VQ codebook.*/
+
+多行註解: /* Finally, decompress the image based on the indexes hiding in the codebook.*/
+
+多行註解: /* Modified 2005/6/29*/
+
+多行註解: /* Further modified 2007/12/11 for reversible secret image trans.*/
+
+標頭檔: #include <conio.h>
+標頭檔: #include <math.h>
+標頭檔: #include <stdio.h>
+標頭檔: #include <values.h>
+標頭檔: #include <iostream.h>
+標頭檔: #include <stdlib.h>
+標頭檔: #include <time.h>
+標頭檔: #include <alloc.h>
+定義: #define TOL 0.001
+定義: #define booksize 1024
+定義: #define blocklen 4
+定義: #define blockwidth 4
+定義: #define width 512L 
+單行註解: //<============
+
+定義: #define len 512L   
+單行註解: //<============
+
+識別項: FILE
+ 識別項: bookfile
+識別項: testfile
+識別項: outfile
+識別項: indexfile
+宣告: int row,col,codewordindex;
+識別項: unsigned
+ 識別項: codebook[booksize][blockwidth][blocklen]
+	 識別項: current[blockwidth][blocklen]
+宣告: int vqindex[16384];
+單行註解: // 512*512/4/4=16384
+
+宣告: double PSNRtmp1=0.0,PSNRtmp2=0.0,PSNR,mins;
+多行註解: /* Distortion calculation */
+
+函式: double dist(unsigned int x[blockwidth][blocklen],   
+	   unsigned int y[blockwidth][blocklen])
+  宣告: int index1,index2,t;
+  宣告: double buf;
+  識別項: buf
+  反覆運算語句: for
+ 識別項: index1
+識別項: index1
+識別項: blockwidth
+識別項: index1
+    反覆運算語句: for
+ 識別項: index2
+識別項: index2
+識別項: blocklen
+識別項: index2
+          識別項: t
+識別項: x[index1][index2]
+識別項: y[index1][index2]
+      識別項: buf
+識別項: pow
+識別項: t
+      return 跳躍陳述式: return (buf);
+                                      多行註解: /* return back the distortion to main procedure */
+
+多行註解: /* Encoding */
+
+函式: int encoder(unsigned int training[blockwidth][blocklen])
+     宣告: int bookindex,i;
+  宣告: double tmp;
+  識別項: mins
+識別項: MAXFLOAT
+        多行註解: /* Is MAXFLOAT A CONSTANT ?? */
+
+  反覆運算語句: for
+ 識別項: i
+識別項: i
+識別項: booksize
+識別項: i
+      識別項: tmp
+識別項: dist
+識別項: training
+識別項: codebook[i]
+      多行註解: /* training[4][4] , codebook[32][4][4] */
+
+    if 陳述式: if
+ 識別項: tmp
+            識別項: cout
+  字串: "error!"
+      識別項: exit
+        if 陳述式: if
+ 識別項: tmp
+識別項: mins
+          識別項: bookindex
+識別項: i
+      識別項: mins
+識別項: tmp
+        return 跳躍陳述式: return (bookindex);
+       多行註解: /* Return value */
+
+函式: void getblock(int row,int col,unsigned buffer[blockwidth][blocklen],
+	      FILE *getfile)
+宣告: unsigned char input[blocklen];
+宣告: unsigned long filepos1,filepos2;
+宣告: int x,y;
+  識別項: filepos1
+識別項: len
+識別項: row
+識別項: col
+    多行註解: /*  len == 512L , width = 512L , why " L " ?? */
+
+  反覆運算語句: for
+ 識別項: x
+識別項: x
+識別項: blockwidth
+識別項: x
+   多行註解: /*  offset length , because image size = 512 X 512 */
+
+      識別項: filepos2
+識別項: filepos1
+識別項: len
+識別項: x
+    識別項: fseek
+識別項: getfile
+識別項: filepos2
+識別項: SEEK_SET
+    多行註解: /* Adjust file position */
+
+    識別項: fread
+識別項: input
+sizeof 運算子: sizeof(char),blocklen,getfile)
+ 多行註解: /* Read data from file position  */
+
+      反覆運算語句: for
+ 識別項: y
+識別項: y
+識別項: blocklen
+識別項: y
+	識別項: buffer[x][y]
+強制轉型: (unsigned)
+識別項: input[y]
+  函式: void codebook_input(FILE *infile,unsigned book[][blockwidth][blockwidth],
+		    int size)
+  宣告: int inputindex1,inputindex2,inputindex3;
+  宣告: unsigned char tempinput[blocklen];
+ 多行註解: /* tempinput[16] is used as a 16 char buffer */
+
+  反覆運算語句: for
+ 識別項: inputindex1
+識別項: inputindex1
+識別項: size
+識別項: inputindex1
+    反覆運算語句: for
+ 識別項: inputindex2
+識別項: inputindex2
+識別項: blockwidth
+識別項: inputindex2
+          識別項: fread
+識別項: tempinput
+sizeof 運算子: sizeof(char),blocklen,infile)
+      反覆運算語句: for
+ 識別項: inputindex3
+識別項: inputindex3
+識別項: blocklen
+識別項: inputindex3
+	識別項: book[inputindex1][inputindex2][inputindex3]
+強制轉型: (unsigned)
+識別項: tempinput[inputindex3]
+    多行註解: /* Write the decoded vector to a file */
+
+函式: void writeout(unsigned vector[blockwidth][blocklen],int row,int col,
+	      FILE *outfile)
+  宣告: unsigned long filepos1,filepos2;
+  宣告: unsigned char out[blocklen];
+  宣告: int i,j;
+  識別項: filepos1
+識別項: len
+識別項: row
+識別項: col
+         多行註解: /* The pos. of upper_left pixel of current input vector */
+
+  反覆運算語句: for
+ 識別項: i
+識別項: i
+識別項: blockwidth
+識別項: i
+      識別項: filepos2
+識別項: filepos1
+識別項: len
+識別項: i
+    反覆運算語句: for
+ 識別項: j
+識別項: j
+識別項: blocklen
+識別項: j
+      識別項: out[j]
+宣告: unsigned char) vector[i][j];
+    識別項: fseek
+識別項: outfile
+識別項: filepos2
+識別項: SEEK_SET
+    識別項: fwrite
+識別項: out
+sizeof 運算子: sizeof(char),blocklen,outfile)
+  識別項: main
+宣告: int x,y,i,temp,bnum;
+   多行註解: /* bnum is the total number of blocks */
+
+識別項: clock_t
+ 識別項: Start
+識別項: End
+   多行註解: /* clock_t can be defined by time.h */
+
+識別項: clrscr
+識別項: row
+識別項: col
+多行註解: /* The bookfile is a codebook file which is the output of the trainsup.cpp pro.*/
+
+多行註解: /* CODEBOOK file */
+
+if 陳述式: if
+ 識別項: bookfile
+識別項: fopen
+字串: "d:\\cccj\\working\\VQBOOK1024_44_1_airplane"
+字串: "r+b"
+NULL 指示詞: NULL
+  識別項: cout
+  字串: "Codebook file open error !!"
+  識別項: getche
+  識別項: exit
+if 陳述式: if
+ 識別項: testfile
+識別項: fopen
+字串: "d:\\cccj\\working\\512x512\\gold"
+字串: "r+b"
+NULL 指示詞: NULL
+ 單行註解: // <=====================
+
+  識別項: cout
+  字串: "Test file open error !!"
+  識別項: getche
+  識別項: exit
+多行註解: /* output the decoded image */
+
+if 陳述式: if
+ 識別項: outfile
+識別項: fopen
+字串: "d:\\cccj\\working\\exp1\\vqgold256_44_1"
+字串: "w+b"
+NULL 指示詞: NULL
+ 單行註解: // <=================
+
+  識別項: cout
+  字串: "Output file open error !!"
+  識別項: getche
+  識別項: exit
+多行註解: /* VQ index file*/
+
+if 陳述式: if
+ 識別項: indexfile
+識別項: fopen
+字串: "d:\\cccj\\working\\exp1\\idxpeppers512_44_1"
+字串: "w+b"
+NULL 指示詞: NULL
+ 單行註解: // <==============
+
+  識別項: cout
+  字串: "Index file open error !!"
+  識別項: getche
+  識別項: exit
+識別項: codebook_input
+識別項: bookfile
+識別項: codebook
+識別項: booksize
+ 多行註解: /* codebook is pointed by bookfile */
+
+識別項: Start
+識別項: clock
+識別項: bnum
+while 陳述式: while
+ 識別項: row
+  識別項: width
+  多行註解: /* width = 512L */
+
+      識別項: getblock
+識別項: row
+識別項: col
+識別項: current
+識別項: testfile
+   多行註解: /* current[4][4] will save the current input vector */
+
+    識別項: codewordindex
+識別項: encoder
+識別項: current
+    識別項: vqindex[bnum]
+識別項: codewordindex
+    識別項: bnum
+    識別項: writeout
+識別項: codebook[codewordindex]
+識別項: row
+識別項: col
+識別項: outfile
+    反覆運算語句: for
+ 識別項: x
+識別項: x
+識別項: blockwidth
+識別項: x
+      反覆運算語句: for
+ 識別項: y
+識別項: y
+識別項: blocklen
+識別項: y
+      	識別項: temp
+識別項: codebook[codewordindex][x][y]
+識別項: current[x][y]
+	識別項: PSNRtmp2
+識別項: pow
+識別項: temp
+          識別項: col
+識別項: blocklen
+     多行註解: /* ( row , col ) is adjusted to ( row , col + 4 ) */
+
+    if 陳述式: if
+ 識別項: col
+識別項: len
+      多行註解: /* If col >= 512L then the first row of blocks of the input image is read . */
+
+          識別項: row
+識別項: blockwidth
+ 多行註解: /* Adjust to next row of input vectors */
+
+      識別項: cout
+  字串: "Row="
+  識別項: row
+  字串: "\n"
+      識別項: col
+      多行註解: /*Write VQ index file. */
+
+  反覆運算語句: for
+識別項: i
+識別項: i
+識別項: i
+      識別項: fprintf
+識別項: indexfile
+字串: "%d\n"
+識別項: vqindex[i]
+     反覆運算語句: for
+識別項: i
+識別項: i
+識別項: i
+      識別項: cout
+  識別項: vqindex[i]
+ 字串: "\n"
+   多行註解: /*Compute the PSNR value. */
+
+多行註解: /*The PSNR value is ok. */
+
+多行註解: /*Check by cccj 2004/2/11*/
+
+  識別項: PSNRtmp1
+識別項: pow
+  識別項: PSNRtmp2
+識別項: PSNRtmp2
+  識別項: PSNR
+識別項: log10
+識別項: PSNRtmp1
+識別項: PSNRtmp2
+  識別項: cout
+  字串: "blocknum= "
+  識別項: bnum
+  字串: "\n"
+  識別項: cout
+  字串: "\nThe PSNR is : "
+  識別項: PSNR
+  識別項: End
+識別項: clock
+  識別項: cout
+  字串: "\n The time == "
+  識別項: End
+識別項: Start
+識別項: CLK_TCK
+  識別項: fclose
+識別項: bookfile
+  識別項: fclose
+識別項: testfile
+  識別項: fclose
+識別項: outfile
+  識別項: fclose
+識別項: indexfile
+  識別項: getche
+  return 跳躍陳述式: return 0;
+================== 統計 =====================
+            檔案結尾 出現 0 次
+               error 出現 0 次
+              標頭檔 出現 8 次
+                定義 出現 6 次
+                宣告 出現 0 次
+                整數 出現 0 次
+              浮點數 出現 0 次
+                字元 出現 0 次
+              識別項 出現 0 次
+                字串 出現 0 次
+            單行註解 出現 6 次
+            多行註解 出現 38 次
+            消除定義 出現 0 次
+            儲存類別 出現 0 次
+                宣告 出現 17 次
+                常數 出現 0 次
+                列舉 出現 0 次
+           case 標籤 出現 0 次
+        default 標籤 出現 0 次
+           if 陳述式 出現 7 次
+       switch 陳述式 出現 0 次
+         else 陳述式 出現 0 次
+        反覆運算語句 出現 14 次
+           do 陳述式 出現 0 次
+        while 陳述式 出現 1 次
+     goto 跳躍陳述式 出現 0 次
+ continue 跳躍陳述式 出現 0 次
+    break 跳躍陳述式 出現 0 次
+            結構類型 出現 0 次
+   return 跳躍陳述式 出現 3 次
+       sizeof 運算子 出現 3 次
+              空字符 出現 196 次
+              識別項 出現 218 次
+            強制轉型 出現 2 次
+                函式 出現 5 次
+                字串 出現 21 次
+                字元 出現 0 次
+         NULL 指示詞 出現 4 次
+            類別宣告 出現 0 次
+     PUBLIC 成員存取 出現 0 次
+    PRIVATE 成員存取 出現 0 次
+     FRIEND 成員存取 出現 0 次
+  PROTECTED 成員存取 出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
+                     出現 0 次
